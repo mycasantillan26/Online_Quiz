@@ -25,10 +25,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-/**
- *
- * @author TechMacky
- */
 class LoginRegistration1  extends JFrame implements ActionListener {
 
     private JLabel usernameLabel, passwordLabel, messageLabel, titleLabel;
