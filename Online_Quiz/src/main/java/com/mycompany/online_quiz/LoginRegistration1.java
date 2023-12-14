@@ -148,7 +148,7 @@ e.printStackTrace();
         }
     }
 } */
-    public void actionPerformed(ActionEvent e
+    public void actionPerformed(ActionEvent e) {
     if (e.getSource() == loginButton) {
         try {
             preparedStatement = connection.prepareStatement("SELECT * FROM tblUser WHERE username = ? AND password = ?");
