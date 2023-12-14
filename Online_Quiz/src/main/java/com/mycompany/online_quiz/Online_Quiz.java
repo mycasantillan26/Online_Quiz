@@ -4,12 +4,6 @@
 
 package com.mycompany.online_quiz;
 
-
-/**
- *
- * @author TechMacky
- */
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
