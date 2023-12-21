@@ -4,6 +4,12 @@
 
 package com.mycompany.online_quiz;
 
+
+/**
+ *
+ * @author TechMacky
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,16 +28,19 @@ public class Online_Quiz extends JFrame {
     private JButton createAccountButton;
     private JLabel loginLabel;
     private Connection connection;
+    private JButton createTAcc;
+    private  JButton createStAcc;
 
     public Online_Quiz() {
-        setTitle("Create an Account");
+        setTitle("Student's Account Creation");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(0, 0, 3000, 700);
+        setSize(1650, 1850);
+        setExtendedState(JFrame.MAXIMIZED_BOTH); 
         getContentPane().setLayout(null);
 
         // Initialize the database connection
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\TechMacky\\Documents\\NetBeansProjects\\OOP2 FinalProj(Online Quiz)\\dbinventorymanagementsystem.db", "username", "password");
+            connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\TechMacky\\Documents\\NetBeansProjects\\OOP2 FinalProj(Online Quiz)\\Online_Quiz\\onlinequiz.db", "username", "password");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -96,9 +105,6 @@ public class Online_Quiz extends JFrame {
         createAccountButton = new JButton("Create an Account");
         createAccountButton.setBounds(175, 330, 150, 30);
         panel.add(createAccountButton);
-
-
-
         createAccountButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -141,6 +147,10 @@ public class Online_Quiz extends JFrame {
                 }
             }
         });
+        
+        
+         
+
 
           // Already have an account? Log in label
         loginLabel = new JLabel("Already have an account? Log in");
