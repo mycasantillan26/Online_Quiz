@@ -4,9 +4,9 @@
  */
 package com.mycompany.online_quiz;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Font;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -16,35 +16,24 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
-
-
-    class LoginRegistration1 extends JFrame implements ActionListener {
+public class LoginTeacher extends JFrame implements ActionListener {
 
     private JLabel usernameLabel, passwordLabel, messageLabel, titleLabel;
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JButton loginButton;
     private JLabel registerLabel;
-    private String loggedInUsername;
+
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
-   
+    private String loggedInUsername;
 
-    public LoginRegistration1() {
+    public LoginTeacher() {
         setSize(1650, 1850);
         setExtendedState(JFrame.MAXIMIZED_BOTH); 
-        setTitle("Log in");
+        setTitle("Teacher's Registration");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
@@ -77,7 +66,7 @@ import javax.swing.SwingUtilities;
 
         messageLabel = new JLabel();
 
-        titleLabel = new JLabel("LOGIN");
+        titleLabel = new JLabel("Teacher's LOGIN");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 40));
         titleLabel.setBounds(90, 0, 500, 150);
 
@@ -108,8 +97,8 @@ import javax.swing.SwingUtilities;
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    Online_Quiz accountCreationGUI = new Online_Quiz();
-                    accountCreationGUI.setVisible(true);
+                    CreateAccountTeacher teacherAccount = new CreateAccountTeacher();
+                    teacherAccount.setVisible(true);
                     dispose();
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -130,7 +119,6 @@ import javax.swing.SwingUtilities;
         }
     }
 
-
     private void showMessage(String message) {
         JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
@@ -138,42 +126,33 @@ import javax.swing.SwingUtilities;
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == loginButton) {
-            // Check if the entered credentials are the default credentials
-            if ("teacher".equals(usernameField.getText()) && "teacher".equals(new String(passwordField.getPassword()))) {
-                // Open the TeacherDashboard directly
-                TeacherDashboard teacher = new TeacherDashboard(connection, "teacher");
-                teacher.setVisible(true);
-                dispose();
-            } else {
-                // If not the default credentials, proceed with the database check
-                try {
-                    preparedStatement = connection.prepareStatement("SELECT * FROM tblUser WHERE username = ? AND password = ?");
-                    preparedStatement.setString(1, usernameField.getText());
-                    preparedStatement.setString(2, new String(passwordField.getPassword()));
+            try {
+                preparedStatement = connection.prepareStatement("SELECT * FROM tblTeacher WHERE username = ? AND password = ?");
+                preparedStatement.setString(1, usernameField.getText());
+                preparedStatement.setString(2, new String(passwordField.getPassword()));
 
-                    resultSet = preparedStatement.executeQuery();
+                resultSet = preparedStatement.executeQuery();
 
-                    if (resultSet.next()) {
-                        // Retrieve the username from the result set
-                        loggedInUsername = resultSet.getString("username");
+                if (resultSet.next()) {
+                    // Retrieve the username from the result set
+                    loggedInUsername = resultSet.getString("username");
 
-                        // Assuming StudentDashboard is the dashboard for students
-                        StudentDashboard student = new StudentDashboard(connection, loggedInUsername);
-                        student.setVisible(true);
-                        dispose();
-                    } else {
-                        messageLabel.setText("Invalid username or password");
-                    }
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
+                    // Create an instance of TeacherDashboard by passing the username
+                    TeacherDashboard teacher = new TeacherDashboard(loggedInUsername);
+                    teacher.setVisible(true);
+                    dispose();
+                } else {
+                    messageLabel.setText("Invalid username or password");
                 }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
         }
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            LoginRegistration1 loginRegistrationSystem1 = new LoginRegistration1();
+            LoginTeacher loginTeacherPage = new LoginTeacher();
         });
     }
-    }
+}
