@@ -339,6 +339,6 @@ private String getOldAnswer(int questionNumber, String answerType) {
 
     private static Connection getDatabaseConnection() {
         // Replace with your logic to get the database connection
-        return null;
+        return;
     }
 }
