@@ -42,6 +42,7 @@ public class StudentDashboard extends JFrame {
         quizPanel.setBackground(Color.decode("#9AD0C2")); // Set background color
 
         add(welcomeLabel, BorderLayout.NORTH);
+        add(welcomeLabel, BorderLayout.SOUTH);
         add(quizPanel, BorderLayout.CENTER);
 
         // Retrieve data from the database and populate quiz panels
