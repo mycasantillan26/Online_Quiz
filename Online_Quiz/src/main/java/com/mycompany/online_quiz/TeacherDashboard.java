@@ -22,7 +22,7 @@ public class TeacherDashboard extends JFrame {
     private JButton logOutButton; // Added logout button
      private JButton createButton;
 
-   public TeacherDashboard(Connection connection, String username) {
+   public TeacherDashboard(Connection connection, int username) {
     this.connection = connection;  // Make sure this line is present
     this.loggedInUsername = username;
     initComponents();
